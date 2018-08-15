@@ -1,0 +1,12 @@
+#!/usr/bin/ruby
+
+txt = File.readlines(ARGV[0])
+  status = 0
+   txt.each_with_index do |line, i|
+	if line	=~ /\w*(== true|!= true|== false|!= false|true ==|true !=|false ==|false !=)/
+		status = 1
+		puts  "Line #{i+1}: #{line}"
+
+	end
+end
+exit(status)

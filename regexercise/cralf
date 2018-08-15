@@ -1,0 +1,19 @@
+#!/usr/bin/ruby
+
+txt = File.readlines(ARGV[0])
+status = 0	
+
+txt.each_with_index do |line, i|
+  line.scan(/(\\r\\n)|(\\n)/).each do |group| 
+     group.each{ |array|
+	if array =~ /\\r\\n/
+ 	  status = 1
+	  puts "CRLF on line #{i+1}: #{line}"
+          elsif array  =~ /\\n/ 
+	   status = 1
+   	   puts "LF on line #{i+1}: #{line}"
+	end
+	}
+  end
+end
+exit(status)

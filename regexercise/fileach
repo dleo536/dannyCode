@@ -1,0 +1,33 @@
+#!/usr/bin/ruby
+
+def expand(pattern)
+	if pattern =~ /{(\w+(?:,\w+)*)}/
+		pre = $`
+		post = $'
+		match = $1
+	
+	list = match.split(/,/)
+		list.map{ |m| expand("#{pre}#{m}#{post}")}.inject([], &:concat)
+		elsif pattern =~ /<(\d+)-(\d+)>/
+		elsePre = $`
+		elsePost = $'
+		start = $1.to_i
+
+		stop = $2.to_i
+		elseList = (start..stop)
+		elseList.map{ |var| expand("#{elsePre}#{var}#{elsePost}")}.inject([], &:concat)
+		
+	else 
+		return [pattern]
+	end
+end
+
+if __FILE__ == $0
+	command = ARGV[0]
+	pattern = ARGV[1]
+	
+	array = expand(pattern)
+	array.each do |file|
+	system("#{command} #{file}")
+	end
+end

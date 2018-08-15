@@ -1,0 +1,20 @@
+#!/usr/bin/ruby
+text = File.read(ARGV[0])
+text.gsub!(/(\d+) THz/) do |roy|
+if roy.to_i.between?(400,483)
+	"#{$1} THz (red)"
+elsif roy.to_i.between?(484,507)
+      "#{$1} THz (orange)"
+elsif roy.to_i.between?(508,525)
+      "#{$1} THz (yellow)"
+elsif roy.to_i.between?(526,605)
+      "#{$1} THz (green)"
+elsif roy.to_i.between?(606,667)
+      "#{$1} THz (blue)"
+elsif roy.to_i.between?(608,789)
+      "#{$1} THz (violet)"
+else
+      "#{roy}"
+   end
+end
+puts text

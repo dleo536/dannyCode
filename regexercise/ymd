@@ -1,0 +1,16 @@
+#!/usr/bin/ruby
+
+text = File.read(ARGV[0])
+
+text.gsub!(/(\d\d|\d)\/(\d\d|\d)\/(\d\d\d\d)/, '\3/\1/\2')
+  
+ text.gsub!(/(\d\d\d\d)\/(\d)\/(\d\D)/, '\1/0\2/0\3')
+
+   text.gsub!(/(\d\d\d\d)\/(\d\d)\/(\d\D)/, '\1/\2/0\3')  
+
+
+   text.gsub!(/(\d\d\d\d)\/(\d)\/(\d\d)/, '\1/0\2/\3')
+
+
+puts text
+

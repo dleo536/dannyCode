@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+
+text = File.read(ARGV[0])
+websites = text.scan(/(https?:\/\/\S*\w[\/]?)/).flatten
+text.gsub!(/(https?:\/\/\S*\w[\/]?)/).with_index{  |i, j| "[#{j+1}]"}
+puts "#{text}\n"
+websites.each_with_index do |website, i|
+  puts "[#{i+1}]: #{website}"
+end
+

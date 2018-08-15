@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+package = File.read(ARGV[0])
+status = 0
+package.lines.each do |line|  
+	if line =~ /^import\s*(?!.*java|.*javax)(.+);$/
+		puts $1
+		status = 1
+  	end
+end
+exit(status)
