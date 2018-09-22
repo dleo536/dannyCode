@@ -1,0 +1,83 @@
+//
+//  main.swift
+//  CardGame
+//
+//  Created by Leo, Daniel Christopher on 9/17/18.
+//  Copyright © 2018 Leo, Daniel Christopher. All rights reserved.
+//
+
+import Foundation
+
+//create players + deck
+var player = Player()
+var computer = Player()
+var deck = Deck()
+
+//deal cards from the deck to players
+var i :Int = 0
+while deck.hasCards(){
+    var newCard = deck.dealCard()
+    player.addCard(newCard!)
+    var newCompCard = deck.dealCard()
+    computer.addCard(newCompCard!)
+   
+    
+}
+
+//whilee the game is not over
+while (player.hasCards() && computer.hasCards()){
+    
+    var playerCard = player.getNextCard() //player plays card
+    
+    var computerCard = computer.getNextCard() //computer plays card
+    var playerWarDeck = [Card]() //player war deck
+    var computerWarDeck = [Card]() //computer's war deck
+    
+    
+    if (playerCard!.value > computerCard!.value){   //if player card is greatest, then add both cards to player hand
+        player.addCard(playerCard!)
+        player.addCard(computerCard!)
+        print("You have \(player.numCards())")
+        print("Computer has \(computer.numCards())")
+        print("You played a \(playerCard!.nameForValue(playerCard!.value)) of \(playerCard!.suit)")
+        print("You win this round.")
+        
+    }else if (playerCard!.value < computerCard!.value){ //else if computer card is greatest, then add both cards to player hand
+        computer.addCard(playerCard!)
+        computer.addCard(computerCard!)
+    }else if(playerCard!.value == computerCard!.value){//if cards are the same enter war
+        while(playerCard!.value == computerCard!.value){//stay at war until playerCards aren't the same
+            for i in 0...3{
+                var playerWarCard:Card = player.getNextCard()!
+                var computerWarCard:Card = computer.getNextCard()!
+                playerWarDeck.append(playerWarCard)//war cards
+                //print("something \(playerWarCard)")
+                computerWarDeck.append(computerWarCard) //war cards
+            }//players top 4 cards separated
+            if (playerWarDeck[3].value > computerWarDeck[3].value){//if players fourth card is greater than the computer's
+                player.addCards(playerWarDeck)
+                player.addCard(playerCard!)
+                player.addCards(computerWarDeck)
+                player.addCard(computerCard!)
+                playerCard = playerWarDeck[3] //set the playerCard and computerCard equal to the warDeck cards to break from the while
+                computerCard = computerWarDeck[3]
+                
+            }else if (playerWarDeck[3].value < computerWarDeck[3].value){//if computers fourth card is greater than the player's then add it
+                computer.addCards(playerWarDeck)
+                computer.addCard(playerCard!)
+                computer.addCards(computerWarDeck)
+                computer.addCard(computerCard!)
+                playerCard = playerWarDeck[3] //set the playerCard and computerCard equal to the warDeck cards to break from the while
+                computerCard = computerWarDeck[3]
+                
+            }else { //update player and computer card to be the last of the added four
+//                playerCard = playerWarDeck[3]
+//                computerCard = computerWarDeck[3]
+                
+            }
+        }
+    }
+}
+
+//display winner
+
