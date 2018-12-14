@@ -1,0 +1,1 @@
+This folder is for my computer architecture class. The two .asm files are assembly code written in MIPS.
